@@ -1,78 +1,103 @@
-	import java.util.Random;
+import class java.unit.Random
 
 public class point{
 
-    private double mass;
-    public double gmb;
-    public double mbS;
+    protected double mass; //masa obiektu
+	protected double dist; //odległość od osi
+    public double gmb;  //główny moment bezwładności obiektu
+    public double mbS;  //moment bezwładności z twierdzenia Steinera obiektu
 
-    public double getmass(){
+    public double getmass(){ //akcesor masy
         return mass;
     }
 	
-	public void setmass(double z){
-		this.mass=z;
+	public void setmass(double z){ //modyfikator masy
+		if (z>=0)
+			this.mass=z;
+		else this.mass=0;
 	}
 	
-    public point(){
+	
+    public double getdist(){ //akcesor odległości
+        return this.dist;
+    }
+	
+	public void setdist(double z){ //modyfikator odległości
+	    if (z>=0)
+			this.dist=z;
+		else this.dist=0;
+	}
+	
+	protected double radius;
+    
+	protected double height;
+    
+	public double getradius(){
+    return this.radius;
+	}
+	
+	public void setradius(double x){
+	if (x>=0)
+			this.radius=x;
+		else this.radius=0;
+	}
+	
+	public void setheight(double x){
+	if (x>=0)
+			this.height=x;
+		else this.height=0;
+	}
+	
+	public double getheight(){
+    return this.height;
+	}
+    
+	protected double length;
+
+	public void setlength(double x){
+	if (x>=0)
+			this.length=x;
+		else this.length=0;
+	}
+	
+	public double getlength(){
+    return this.length;
+	}
+	
+    public point(){ //konstruktor bez parametru
         this.mass=1;
+		this.dist=1;
+		this.length=0;
+		this.height=0;
+		this.radius=0;
+		this.gmb();
+		this.mbS();
     }
 	
-    public point(double x){
+    public point(double x, double y){ //kontruktor z parametrem ustawiający mase obiektu na wartość parametru
         this.mass=x;
+		this.dist=y;
+		this.gmb();
+		this.mbS();
+		
     }
 	
-    public void gmb(){
+    public void gmb(){ //metoda wyliczająca i ustawiająca główny moment bezwładności obiektu
         this.gmb = 0;
     }
 	
-    public void mbS(double y){
-        this.mbS=((this.mass)*y*y);
-    }
+    
+    public void mbS(){ //metoda wyliczająca i ustawiająca moment bezwładności z twierdzenia Steinera obiektu
+		this.mbS=this.gmb + this.mass * this.dist * this.dist;
+	}
 	
-	public String opis(){
+	
+	public String opis(){ //metoda zwracająca opis obiektu
 		return "Punkt Materialny";
 	}
-
-    public static void main(String[] args) {
-		double R = 9.81;
-        point oni = new point();
-        point ichigo = new point(5);
-		System.out.println("Opis 002 : "+oni.opis());
-		System.out.println("Opis 016 : "+ichigo.opis());
-        System.out.println("Masa 002 = "+oni.getmass());
-		System.out.println("Masa 016 = "+ichigo.getmass());
-		oni.gmb();
-		ichigo.gmb();
-		oni.mbS(R);
-		ichigo.mbS(R);
-		System.out.println("Glowny Moment Bezwladnosci 002 = "+ oni.gmb);
-		System.out.println("Moment Bezwladnosci Steinera Wzgledem Osi Odleglej O R = "+R+" Dla 002 = "+ oni.mbS);
-		System.out.println("Glowny Moment Bezwladnosci 016 = "+ ichigo.gmb);
-		System.out.println("Moment Bezwladnosci Steinera Wzgledem Osi Odleglej O R = "+R+" Dla 016 = "+ ichigo.mbS);
-		oni.setmass(6.37);
-		System.out.println("Nowa Masa 002 = "+oni.getmass());
-		oni.mbS(R);
-		System.out.println("Nowy Glowny Moment Bezwladnosci 002 = "+ oni.gmb);
-		System.out.println("Nowy Moment Bezwladnosci Steinera Wzgledem Osi Odleglej O R = "+R+" Dla 002 = "+ oni.mbS+"\n\n\n");
-		Random gen = new Random();
-		point[] tablica = new point[5];
-			for(int k=0;k<5;k++){
-				point b = new point(10*gen.nextDouble());
-				tablica[k] = b;
-			}
-			for(int k=0;k<5;k++){
-				System.out.println("Opis "+k+" : "+tablica[k].opis());
-				System.out.println("Masa punktu numer "+k+" = "+tablica[k].getmass());
-				tablica[k].gmb();
-				tablica[k].mbS(R);
-				System.out.println("Glowny Moment Bezwladnosci "+k+" = "+ tablica[k].gmb);
-				System.out.println("Moment Bezwladnosci Steinera Wzgledem Osi Odleglej O R = "+R+" Dla "+k+" = "+ tablica[k].mbS+"\n\n\n");
-			}
-				
-				
-				
-				
-    }
-
+	
+	 public static void main(String[] args) {
+		 System.out.println("Ok");
+	 }
+	 
 }
